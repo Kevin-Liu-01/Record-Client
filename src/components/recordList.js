@@ -36,7 +36,7 @@ export default class RecordList extends Component {
   // This method will get the data from the database.
   componentDidMount() {
     axios
-      .get("http://localhost:3000/record/")
+      .get("http://secret-thicket-69950.herokuapp.com/record/")
       .then((response) => {
         this.setState({ records: response.data });
       })
