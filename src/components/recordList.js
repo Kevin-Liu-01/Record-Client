@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // This will require to npm install axios
 import axios from 'axios';
 import { Link } from "react-router-dom";
+import Constants from './config.js'
 
 const Record = (props) => (
   <tr>
@@ -36,9 +37,9 @@ export default class RecordList extends Component {
   // This method will get the data from the database.
   componentDidMount() {
     axios
-      .get("http://secret-thicket-69950.herokuapp.com/record/")
+      .get(`${Constants.SERVER_HOST}/record/`)
       .then((response) => {
-        console.log("http://secret-thicket-69950.herokuapp.com/record/")
+        console.log(`/record/ returned response from: ${Constants.SERVER_HOST}/record/`)
         this.setState({ records: response.data });
       })
       .catch(function (error) {
@@ -47,11 +48,17 @@ export default class RecordList extends Component {
   }
 
   // This method will delete a record based on the method
-  deleteRecord(id) {
-    axios.delete("http://localhost:3000/" + id).then((response) => {
+  async deleteRecord(id) {
+    // axios.delete(`${Constants.SERVER_HOST}/${id}`).then((response) => {
+    //   console.log(response.data);
+    // });
+
+    axios.post(`${Constants.SERVER_HOST}/delete/${id}`).then((response) => {
       console.log(response.data);
     });
 
+    console.log("Deleterecord is called")
+    await new Promise(resolve => setTimeout(resolve, 1000));
     this.setState({
       record: this.state.records.filter((el) => el._id !== id),
     });

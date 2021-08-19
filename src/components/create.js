@@ -2,6 +2,8 @@ import React, { useState } from "react";
 // This will require to npm install axios
 import axios from 'axios';
 import { withRouter } from "react-router";
+import Constants from './config.js'
+
 
 const Create = (props) => {
   const [stateObj = {}, _objSet] = useState({ person_name: "", person_position: "", person_level: "" })
@@ -56,11 +58,10 @@ const Create = (props) => {
     };
 
     axios
-      .post("http://localhost:3000/record/add", newperson)
+      .post(`${Constants.SERVER_HOST}/record/add`, newperson)
       .then((res) => {console.log(res.data);});
  
     
-    // await axios.post("http://localhost:3000/record/add", newperson);
     console.log("Timer begin")
 
     

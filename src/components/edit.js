@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 // This will require to npm install axios
 import axios from "axios";
 import { withRouter } from "react-router";
+import Constants from './config.js'
+
 
 const Edit = (props) => {
   // This is the constructor that stores the data.
@@ -15,7 +17,7 @@ const Edit = (props) => {
   useEffect(() => {
     console.log("USEFFECT CALLED")
     axios
-      .get("http://localhost:3000/record/" + props.match.params.id)
+      .get(`${Constants.SERVER_HOST}/record/${props.match.params.id}`)
       .then((response) => (
         setName(response.data.person_name),
         setPosition(response.data.person_position),
@@ -61,7 +63,7 @@ const Edit = (props) => {
     // This will send a post request to update the data in the database.
     axios
       .post(
-        "http://localhost:3000/update/" + props.match.params.id,
+        `${Constants.SERVER_HOST}/update/ + ${props.match.params.id}`,
         newEditedperson
       )
       .then((res) => console.log(res.data));
