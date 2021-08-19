@@ -38,6 +38,7 @@ export default class RecordList extends Component {
     axios
       .get("http://secret-thicket-69950.herokuapp.com/record/")
       .then((response) => {
+        console.log("http://secret-thicket-69950.herokuapp.com/record/")
         this.setState({ records: response.data });
       })
       .catch(function (error) {
