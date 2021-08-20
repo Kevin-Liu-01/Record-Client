@@ -19,6 +19,7 @@ const Edit = (props) => {
     axios
       .get(`${Constants.SERVER_HOST}/record/${props.match.params.id}`)
       .then((response) => (
+        console.log(`${Constants.SERVER_HOST}/record/${props.match.params.id}`),
         setName(response.data.person_name),
         setPosition(response.data.person_position),
         setLevel(response.data.person_level))
@@ -63,12 +64,12 @@ const Edit = (props) => {
     // This will send a post request to update the data in the database.
     axios
       .post(
-        `${Constants.SERVER_HOST}/update/ + ${props.match.params.id}`,
+        `${Constants.SERVER_HOST}/update/${props.match.params.id}`,
         newEditedperson
       )
-      .then((res) => console.log(res.data));
+      .then((res) => {console.log(res.data);  props.history.push("/");});
 
-    props.history.push("/");
+   
   }
 
   // This following section will display the update-form that takes the input from the user to update the data.

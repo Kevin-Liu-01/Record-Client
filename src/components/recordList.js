@@ -60,7 +60,7 @@ export default class RecordList extends Component {
     console.log("Deleterecord is called")
     await new Promise(resolve => setTimeout(resolve, 1000));
     this.setState({
-      record: this.state.records.filter((el) => el._id !== id),
+      records: this.state.records.filter((el) => el._id !== id),
     });
   }
 
