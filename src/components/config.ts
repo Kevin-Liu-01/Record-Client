@@ -2,7 +2,7 @@
 const Constants = {
     // SERVER_HOST: "https://secret-thicket-69950.herokuapp.com"  //new js app
     // SERVER_HOST: "http://localhost:3000"
-    SERVER_HOST: "https://github-record-client-server.herokuapp.com" //ts app
+    SERVER_HOST: "https://github-heroku-server.herokuapp.com" //ts app
 
 }
 
