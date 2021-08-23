@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 // This will require to npm install axios
 import axios from 'axios';
-import { Link } from "react-router-dom";
-import Constants from './config.js'
+import { Link} from "react-router-dom";
+import Constants from './config'
 
-const Record = (props) => (
+
+const Record = (props: any) => (
   <tr>
     <td>{props.record.person_name}</td>
     <td>{props.record.person_position}</td>
@@ -22,10 +23,19 @@ const Record = (props) => (
     </td>
   </tr>
 );
+interface PersonRecordDB{
+  _id: string, 
+  person_name: string, 
+  person_level: string, 
+  person_position: string
+}
 
-export default class RecordList extends Component {
+interface RecordListState{records:PersonRecordDB[]}
+
+
+export default class RecordList extends Component< any, RecordListState> {
   // This is the constructor that shall store our data retrieved from the database
-  constructor(props) {
+  constructor(props:any) {
     console.log("The constructor in recordlist is called")
 
     super(props);
@@ -48,7 +58,7 @@ export default class RecordList extends Component {
   }
 
   // This method will delete a record based on the method
-  async deleteRecord(id) {
+  async deleteRecord(id:string) {
     // axios.delete(`${Constants.SERVER_HOST}/${id}`).then((response) => {
     //   console.log(response.data);
     // });

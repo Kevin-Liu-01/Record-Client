@@ -1,17 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
 // This will require to npm install axios
 import axios from "axios";
-import { withRouter } from "react-router";
-import Constants from './config.js'
+import { withRouter,RouteComponentProps } from "react-router";
+import Constants from './config'
+import {myFunc as newMyFunc, DummyConstants as something} from './config'
 
 
-const Edit = (props) => {
+newMyFunc()
+const nn: string = something.KK;
+
+interface EditParams{id: string}
+
+const Edit = (props: RouteComponentProps<EditParams>) => {
   // This is the constructor that stores the data.
   console.log("The constructor in edit is called")
   const [person_name, setName] = useState("")
   const [person_position, setPosition] = useState("")
   const [person_level, setLevel] = useState("")
-  const [records, setRecords] = useState([])
 
   // This will get the record based on the id from the database.
   useEffect(() => {
@@ -28,8 +33,10 @@ const Edit = (props) => {
       })
   }, [])
 
+
+
   // These methods will update the state properties.
-  function onChangePersonName(eb) {
+  function onChangePersonName(eb:ChangeEvent<HTMLInputElement>) {
     console.log(eb.target.value)
     if (eb.target.value.length < 13) {
       setName(eb.target.value)
@@ -40,18 +47,18 @@ const Edit = (props) => {
     }
   }
 
-  function onChangePersonPosition(e) {
+  function onChangePersonPosition(e:ChangeEvent<HTMLInputElement>) {
     setPosition(e.target.value)
 
   }
 
-  function onChangePersonLevel(e) {
+  function onChangePersonLevel(e:ChangeEvent<HTMLInputElement>) {
     setLevel(e.target.value)
 
   }
 
   // This function will handle the submission.
-  function onSubmit(e) {
+  function onSubmit(e:FormEvent) {
     e.preventDefault();
     const newEditedperson = {
 
@@ -77,7 +84,7 @@ const Edit = (props) => {
 
   return (
     <div>
-      <h3 align="center">Update Record</h3>
+      <h3 style={{textAlign: 'center'}}>Update Record</h3>
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <label>Person's Name: </label>

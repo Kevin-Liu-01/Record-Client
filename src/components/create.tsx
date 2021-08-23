@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 // This will require to npm install axios
 import axios from 'axios';
-import { withRouter } from "react-router";
-import Constants from './config.js'
+import { withRouter, RouteComponentProps } from "react-router";
+import Constants from './config'
 
+interface PersonRecord{person_name: string, person_position: string, person_level: string}
 
-const Create = (props) => {
-  const [stateObj = {}, _objSet] = useState({ person_name: "", person_position: "", person_level: "" })
+const Create = (props:RouteComponentProps) => {
+  const [stateObj, _objSet] = useState<PersonRecord>({ person_name: "", person_position: "", person_level: "" })
   const myStateRef = React.useRef(stateObj);
 
-  const objSet = data => {
+  const objSet = (data:PersonRecord) => {
     myStateRef.current = data;
     _objSet(data);
   };
@@ -31,22 +32,22 @@ const Create = (props) => {
   // }
 
   // These methods will update the state properties.
-  function onChangePersonName(e) {
+  function onChangePersonName(e:ChangeEvent<HTMLInputElement>) {
     console.log(" prev state: " + JSON.stringify(myStateRef.current));
     objSet({ ...myStateRef.current, person_name: e.target.value })
   }
 
-  function onChangePersonPosition(e) {
+  function onChangePersonPosition(e:ChangeEvent<HTMLInputElement>) {
     objSet({ ...myStateRef.current, person_position: e.target.value })
   }
 
 
-  function onChangePersonLevel(e) {
+  function onChangePersonLevel(e:ChangeEvent<HTMLInputElement>) {
     objSet({ ...myStateRef.current, person_level: e.target.value })
   }
 
   // This function will handle the submission.
-  async function onSubmit(e) {
+  async function onSubmit(e:FormEvent) {
     e.preventDefault();
 
     // When post request is sent to the create url, axios will add a new record(newperson) to the database.
@@ -54,17 +55,17 @@ const Create = (props) => {
       person_name: stateObj.person_name,
       person_position: stateObj.person_position,
       person_level: stateObj.person_level,
-      
+
     };
 
     axios
       .post(`${Constants.SERVER_HOST}/record/add`, newperson)
-      .then((res) => {console.log(res.data);});
- 
-    
+      .then((res) => { console.log(res.data); });
+
+
     console.log("Timer begin")
 
-    
+
 
     await new Promise(resolve => setTimeout(resolve, 1000));
 
@@ -80,7 +81,7 @@ const Create = (props) => {
       person_level: "",
     });
 
-    
+
 
   }
 
